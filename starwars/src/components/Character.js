@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 
-export default function Character(props) {
-    const {name, height, mass, gender} = props;
+    export default function Character(props) {
+        const {name, height, mass, gender} = props;
     const [charName, setCharName] = useState("");
     const [charHeight, setCharHeight] = useState("");
     const [charMass, setCharMass] = useState("");
@@ -21,17 +21,32 @@ export default function Character(props) {
 //         setCharGender(res.data.gender);
 //       })}, []);
 
-    setCharName(name);
-    setCharHeight(height);
-    setCharMass(mass);
-    setCharGender(gender);
+    const StyledDiv = styled.div`
+        background-color: rgba(255,255,255,0.2);
+        width: 30%;
+        display:flex;
+        justify-content: center;
+        align-items:center;
+        flex-direction: column;
+        margin: 0 35%;
+    `;
+    const StyledP = styled.p`
+        color: white;
+    `;
+
+    useEffect(() => {
+        setCharName(name);
+        setCharHeight(height);
+        setCharMass(mass);
+        setCharGender(gender);
+    }, []);
 
     return (
-        <div className="Card">
+        <StyledDiv className="Card">
             <h1>{charName}</h1>
-            <p>Height: {charHeight}</p>
-            <p>Mass: {charMass}</p>
-            <p>Gender: {charGender}</p>
-        </div>
+            <StyledP>Height: {charHeight}</StyledP>
+            <StyledP>Mass: {charMass}</StyledP>
+            <StyledP>Gender: {charGender}</StyledP>
+        </StyledDiv>
     );
 }

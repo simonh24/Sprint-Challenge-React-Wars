@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import styled from "styled-components";
 import axios from "axios";
 import './App.css';
 import Character from "./components/Character"
@@ -12,19 +11,23 @@ const App = () => {
   // side effect in a component, you want to think about which state and/or props it should
   // sync up with, if any.
 
+  const [charArr, setCharArr] = useState([])
+
+  useEffect(() => {
+    axios.get("https://swapi.py4e.com/api/people/")
+      .then(res => {
+        res.data.results.map(el => setCharArr([...charArr, el]))
+      })
+      .catch(err => console.log(err))
+  },[])
   return (
     <div className="App">
       <h1 className="Header">Characters</h1>
-      {
-        useEffect(() => {
-          axios.get("https://swapi.py4e.com/api/people/")
-            .then(res => {
-              res.data.results.map(el => (<Character props={el}/>))
-            })
-        }, [])
-      }
+{charArr.map(char => <Character name={char.name} height={char.height} mass={char.mass} gender={char.gender} />)}
+{/* <Character /> line to {charArr.map(char => <Character char={char} />)} */}
     </div>
   )
 }
+
 
 export default App;
