@@ -16,15 +16,16 @@ const App = () => {
   useEffect(() => {
     axios.get("https://swapi.py4e.com/api/people/")
       .then(res => {
-        res.data.results.map(el => setCharArr([...charArr, el]))
+        setCharArr(res.data.results)
       })
       .catch(err => console.log(err))
-  },[])
+  }, [])
   return (
     <div className="App">
       <h1 className="Header">Characters</h1>
-{charArr.map(char => <Character name={char.name} height={char.height} mass={char.mass} gender={char.gender} />)}
-{/* <Character /> line to {charArr.map(char => <Character char={char} />)} */}
+      {/* {charArr.map(char => <Character name={char.name} height={char.height} mass={char.mass} gender={char.gender} />)} */}
+      {charArr.map(el => <Character key={el.name} name={el.name} height={el.height} mass={el.mass} gender={el.gender} />)}
+      {/* <Character /> line to {charArr.map(char => <Character char={char} />)} */}
     </div>
   )
 }
